@@ -1,17 +1,6 @@
 ---
-name: owasp-top-10-2025
-description: >
-  Applies OWASP Top 10:2025 security guidance when reviewing code, designing systems, or discussing
-  web application security. Use when the user asks about application security risks, vulnerability
-  prevention, secure coding practices, security reviews, security audit, code review, PR review,
-  penetration testing, SAST findings, threat modeling, OWASP compliance, or mentions any of:
-  broken access control, IDOR, SSRF, CORS, security misconfiguration, supply chain security,
-  vulnerable dependencies, cryptographic failures, plaintext secrets, hardcoded keys, injection,
-  SQL injection, XSS, command injection, insecure design, authentication failures, credential
-  stuffing, session management, data integrity, insecure deserialization, security logging, error
-  handling, exception handling, fail-open, or fail-closed. Also trigger when reviewing pull
-  requests for security issues, hardening configurations, or building any feature that handles
-  user input, authentication, authorization, file uploads, payments, or sensitive data.
+name: owasp-top-10
+description: "Applies OWASP Top 10:2025 security guidance when reviewing code, designing systems, or discussing web application security. Use when the user asks about application security risks, vulnerability prevention, secure coding practices, security reviews, security audit, code review, PR review, penetration testing, SAST findings, threat modeling, OWASP compliance, or mentions any of: broken access control, IDOR, SSRF, CORS, security misconfiguration, supply chain security, vulnerable dependencies, cryptographic failures, plaintext secrets, hardcoded keys, injection, SQL injection, XSS, command injection, insecure design, authentication failures, credential stuffing, session management, data integrity, insecure deserialization, security logging, error handling, exception handling, fail-open, or fail-closed. Also trigger when reviewing pull requests for security issues, hardening configurations, or building any feature that handles user input, authentication, authorization, file uploads, payments, or sensitive data."
 ---
 
 # OWASP Top 10:2025 — Security Guidance for Developers
@@ -23,33 +12,18 @@ Source: https://owasp.org/Top10/2025/
 
 ## The 2025 List at a Glance
 
-| #  | Category | Key Concern |
-|----|----------|-------------|
-| A01 | Broken Access Control | Users acting outside intended permissions |
-| A02 | Security Misconfiguration | Insecure defaults, open cloud storage, verbose errors |
-| A03 | Software Supply Chain Failures | Compromised dependencies, build systems, distribution (**new scope**) |
-| A04 | Cryptographic Failures | Weak crypto, plaintext data, key leakage |
-| A05 | Injection | SQL, NoSQL, OS command, LDAP, XSS injection |
-| A06 | Insecure Design | Missing or ineffective security controls at the design level |
-| A07 | Authentication Failures | Credential stuffing, weak passwords, broken session management |
-| A08 | Software or Data Integrity Failures | Insecure deserialization, unsigned updates, tampered artifacts |
-| A09 | Security Logging & Alerting Failures | Insufficient logging, no alerting, poor incident visibility |
+| #   | Category                              | Key Concern                                                           |
+| --- | ------------------------------------- | --------------------------------------------------------------------- |
+| A01 | Broken Access Control                 | Users acting outside intended permissions                             |
+| A02 | Security Misconfiguration             | Insecure defaults, open cloud storage, verbose errors                 |
+| A03 | Software Supply Chain Failures        | Compromised dependencies, build systems, distribution (**new scope**) |
+| A04 | Cryptographic Failures                | Weak crypto, plaintext data, key leakage                              |
+| A05 | Injection                             | SQL, NoSQL, OS command, LDAP, XSS injection                           |
+| A06 | Insecure Design                       | Missing or ineffective security controls at the design level          |
+| A07 | Authentication Failures               | Credential stuffing, weak passwords, broken session management        |
+| A08 | Software or Data Integrity Failures   | Insecure deserialization, unsigned updates, tampered artifacts        |
+| A09 | Security Logging & Alerting Failures  | Insufficient logging, no alerting, poor incident visibility           |
 | A10 | Mishandling of Exceptional Conditions | Fail-open errors, unhandled exceptions, crash-path exploits (**new**) |
-
-## Key Changes from 2021
-
-Three structural changes define the 2025 update:
-
-1. **SSRF consolidated into A01** — Server-Side Request Forgery is now part of Broken Access Control,
-   reflecting that both are fundamentally about unauthorized resource access.
-2. **A03 expanded from "Vulnerable Components" to "Supply Chain Failures"** — Now covers the entire
-   ecosystem: dependencies, build systems, CI/CD pipelines, and distribution infrastructure. Voted
-   the #1 concern in the OWASP community survey.
-3. **A10 is brand new: Mishandling of Exceptional Conditions** — Replaces the old SSRF category.
-   Focuses on fail-open scenarios, unhandled exceptions, and systems that break insecurely under stress.
-
-The 2025 edition also shifted focus from symptoms to root causes. Categories like "Cryptographic
-Failures" address the underlying problem rather than the resulting "Sensitive Data Exposure."
 
 ## How to Respond
 
@@ -70,12 +44,12 @@ When this skill is active, apply the following approach consistently:
 
 Rate every finding with one of these four levels:
 
-| Severity | Criteria |
-|----------|----------|
-| 🔴 **Critical** | Directly exploitable with no preconditions. Leads to full system/data compromise, RCE, auth bypass, or mass data exposure. Examples: SQL injection with no auth required, hardcoded admin credentials, deserialization RCE. |
-| 🟠 **High** | Exploitable with low complexity or minimal access. Significant data exposure, privilege escalation, or service disruption likely. Examples: IDOR on sensitive records, missing auth on admin endpoints, broken session invalidation. |
-| 🟡 **Medium** | Exploitable under specific conditions or requires some user interaction. Limited data exposure or requires chaining with another issue. Examples: CSRF on low-value actions, verbose error messages leaking internals, missing rate limiting on password reset. |
-| 🔵 **Low / Informational** | Defense-in-depth improvements. Not directly exploitable alone, but reduces security posture. Examples: missing security headers, overly broad CORS, unused dependencies. |
+| Severity                   | Criteria                                                                                                                                                                                                                                                        |
+| -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🔴 **Critical**            | Directly exploitable with no preconditions. Leads to full system/data compromise, RCE, auth bypass, or mass data exposure. Examples: SQL injection with no auth required, hardcoded admin credentials, deserialization RCE.                                     |
+| 🟠 **High**                | Exploitable with low complexity or minimal access. Significant data exposure, privilege escalation, or service disruption likely. Examples: IDOR on sensitive records, missing auth on admin endpoints, broken session invalidation.                            |
+| 🟡 **Medium**              | Exploitable under specific conditions or requires some user interaction. Limited data exposure or requires chaining with another issue. Examples: CSRF on low-value actions, verbose error messages leaking internals, missing rate limiting on password reset. |
+| 🔵 **Low / Informational** | Defense-in-depth improvements. Not directly exploitable alone, but reduces security posture. Examples: missing security headers, overly broad CORS, unused dependencies.                                                                                        |
 
 ### Finding Format
 
@@ -109,9 +83,9 @@ and give concrete prevention steps tailored to the user's stack if known.
 ## Reference Files
 
 → `references/categories.md` — Full details on all 10 categories: descriptions, common
-  vulnerabilities, prevention strategies, code review patterns, and OWASP Cheat Sheet links.
+vulnerabilities, prevention strategies, code review patterns, and OWASP Cheat Sheet links.
 → `references/code-patterns.md` — Insecure → secure code examples in JavaScript and Python
-  for the most frequently encountered vulnerability types.
+for the most frequently encountered vulnerability types.
 
 ## Quick Prevention Checklist
 
