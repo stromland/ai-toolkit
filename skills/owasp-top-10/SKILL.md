@@ -3,12 +3,15 @@ name: owasp-top-10-2025
 description: >
   Applies OWASP Top 10:2025 security guidance when reviewing code, designing systems, or discussing
   web application security. Use when the user asks about application security risks, vulnerability
-  prevention, secure coding practices, security reviews, threat modeling, OWASP compliance, or
-  mentions any of: broken access control, security misconfiguration, supply chain security,
-  cryptographic failures, injection, insecure design, authentication failures, data integrity,
-  security logging, error handling, or exception handling. Also trigger when reviewing pull requests
-  for security issues, hardening configurations, or building new features that handle user input,
-  authentication, authorization, or sensitive data.
+  prevention, secure coding practices, security reviews, security audit, code review, PR review,
+  pull request review, penetration testing, SAST findings, threat modeling, OWASP compliance, or
+  mentions any of: broken access control, IDOR, SSRF, CORS, security misconfiguration, supply chain
+  security, vulnerable dependencies, cryptographic failures, plaintext secrets, hardcoded keys,
+  injection, SQL injection, XSS, command injection, insecure design, authentication failures,
+  credential stuffing, session management, data integrity, insecure deserialization, security
+  logging, error handling, exception handling, fail-open, or fail-closed. Also trigger when
+  reviewing pull requests for security issues, hardening configurations, or building any feature
+  that handles user input, authentication, authorization, file uploads, payments, or sensitive data.
 ---
 
 # OWASP Top 10:2025 — Security Guidance for Developers
@@ -48,19 +51,67 @@ Three structural changes define the 2025 update:
 The 2025 edition also shifted focus from symptoms to root causes. Categories like "Cryptographic
 Failures" address the underlying problem rather than the resulting "Sensitive Data Exposure."
 
-## How to Use This Skill
+## How to Respond
 
-**For code reviews:** Check the relevant categories below against the code under review. The
-references file has specific patterns to look for and prevention techniques for each category.
+When this skill is active, apply the following approach consistently:
 
-**For architecture/design:** Use A06 (Insecure Design) as your starting point, then verify that
-each relevant category has controls designed in from the start.
+### Review Methodology
 
-**For threat modeling:** Walk through each category and ask "could this apply to our system?"
+1. **Scan all 10 categories** against the code, design, or question at hand.
+2. **Report only what applies** — don't list categories that aren't relevant just to be thorough.
+3. **Always provide a concrete fix** — every finding must include either corrected code or a
+   specific actionable step. Never leave a finding without a remedy.
+4. **Reference authoritative guidance** — point to the relevant OWASP Cheat Sheet or category
+   for each finding. See `references/categories.md` for cheat sheet links per category.
+5. **Check for patterns, not just instances** — if you find one SQL injection, look for the same
+   pattern elsewhere before reporting.
 
-For detailed guidance on any category, read the reference file:
-→ `references/categories.md` — Full details on all 10 categories with descriptions, common
-  vulnerabilities, prevention strategies, and code-level examples.
+### Severity Definitions
+
+Rate every finding with one of these four levels:
+
+| Severity | Criteria |
+|----------|----------|
+| 🔴 **Critical** | Directly exploitable with no preconditions. Leads to full system/data compromise, RCE, auth bypass, or mass data exposure. Examples: SQL injection with no auth required, hardcoded admin credentials, deserialization RCE. |
+| 🟠 **High** | Exploitable with low complexity or minimal access. Significant data exposure, privilege escalation, or service disruption likely. Examples: IDOR on sensitive records, missing auth on admin endpoints, broken session invalidation. |
+| 🟡 **Medium** | Exploitable under specific conditions or requires some user interaction. Limited data exposure or requires chaining with another issue. Examples: CSRF on low-value actions, verbose error messages leaking internals, missing rate limiting on password reset. |
+| 🔵 **Low / Informational** | Defense-in-depth improvements. Not directly exploitable alone, but reduces security posture. Examples: missing security headers, overly broad CORS, unused dependencies. |
+
+### Finding Format
+
+Structure each finding as:
+
+```
+[SEVERITY] CategoryCode — Short Title
+Location: file.ext:line or component/endpoint
+Issue: One sentence explaining what the vulnerability is and why it's dangerous.
+Fix: Corrected code snippet or specific remediation steps.
+Reference: OWASP Cheat Sheet or category link.
+```
+
+### Context-Specific Guidance
+
+**For code reviews / PR reviews:** Scan changed lines first, then look for call sites and related
+patterns throughout the codebase context available to you. Flag issues in the diff specifically
+(file + line). Prioritize Critical and High; mention Medium/Low briefly at the end.
+
+**For architecture/design questions:** Start with A06 (Insecure Design), then work through each
+relevant category. Focus on what controls need to be designed in, not just implemented.
+
+**For threat modeling:** Walk through each category and ask "could an attacker exploit this in
+our system?" Produce a finding per plausible threat vector, with likelihood and impact reasoning.
+
+**For general security questions:** Cite the relevant OWASP category, explain the risk clearly,
+and give concrete prevention steps tailored to the user's stack if known.
+
+---
+
+## Reference Files
+
+→ `references/categories.md` — Full details on all 10 categories: descriptions, common
+  vulnerabilities, prevention strategies, code review patterns, and OWASP Cheat Sheet links.
+→ `references/code-patterns.md` — Insecure → secure code examples in JavaScript and Python
+  for the most frequently encountered vulnerability types.
 
 ## Quick Prevention Checklist
 
