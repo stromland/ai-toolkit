@@ -4,14 +4,14 @@ description: >
   Applies OWASP Top 10:2025 security guidance when reviewing code, designing systems, or discussing
   web application security. Use when the user asks about application security risks, vulnerability
   prevention, secure coding practices, security reviews, security audit, code review, PR review,
-  pull request review, penetration testing, SAST findings, threat modeling, OWASP compliance, or
-  mentions any of: broken access control, IDOR, SSRF, CORS, security misconfiguration, supply chain
-  security, vulnerable dependencies, cryptographic failures, plaintext secrets, hardcoded keys,
-  injection, SQL injection, XSS, command injection, insecure design, authentication failures,
-  credential stuffing, session management, data integrity, insecure deserialization, security
-  logging, error handling, exception handling, fail-open, or fail-closed. Also trigger when
-  reviewing pull requests for security issues, hardening configurations, or building any feature
-  that handles user input, authentication, authorization, file uploads, payments, or sensitive data.
+  penetration testing, SAST findings, threat modeling, OWASP compliance, or mentions any of:
+  broken access control, IDOR, SSRF, CORS, security misconfiguration, supply chain security,
+  vulnerable dependencies, cryptographic failures, plaintext secrets, hardcoded keys, injection,
+  SQL injection, XSS, command injection, insecure design, authentication failures, credential
+  stuffing, session management, data integrity, insecure deserialization, security logging, error
+  handling, exception handling, fail-open, or fail-closed. Also trigger when reviewing pull
+  requests for security issues, hardening configurations, or building any feature that handles
+  user input, authentication, authorization, file uploads, payments, or sensitive data.
 ---
 
 # OWASP Top 10:2025 — Security Guidance for Developers
